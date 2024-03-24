@@ -5,7 +5,8 @@ from init import db, ma, bcrypt, jwt # Importing necessary Flask extensions
 def create_app():
     # Create a Flask application instance
     app = Flask(__name__)
-
+    
+    # Ensure JSON responses maintain order of keys
     app.json.sort_keys = False
 
     #so that our details are not posted on github
@@ -18,6 +19,7 @@ def create_app():
     bcrypt.init_app(app)
     jwt.init_app(app)
 
+    # Register blueprints for different controllers
     from controllers.cli_controller import db_commands
     app.register_blueprint(db_commands)
 

@@ -7,20 +7,25 @@ from models.team import Team
 from models.membership import Membership
 from models.timetrial import TimeTrial
 
+# Create a blueprint for CLI commands related to database management
 db_commands = Blueprint('db', __name__)
 
+# Command to create database tables
 @db_commands.cli.command('create')
 def create_tables():
     db.create_all()
     print("Tables created")
 
+# Command to drop database tables
 @db_commands.cli.command('drop')
 def drop_tables():
     db.drop_all()
     print("Tables dropped")
 
+# Command to seed initial data into database tables
 @db_commands.cli.command('seed')
 def seed_tables():
+    # Seed users
     users = [
         User(
             name="Captain test",
@@ -44,6 +49,7 @@ def seed_tables():
 
     db.session.add_all(users)
 
+    # Seed teams
     teams = [
         Team(
             team_name="Team 1",
@@ -61,6 +67,7 @@ def seed_tables():
 
     db.session.add_all(teams)
 
+    # Seed memberships
     memberships = [
         Membership(
             is_captain=True,
@@ -97,6 +104,7 @@ def seed_tables():
 
     db.session.add_all(time_trials)
 
+    # Commit all changes to the database
     db.session.commit()
 
     print("Tables seeded")

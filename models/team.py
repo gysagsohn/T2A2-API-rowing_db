@@ -6,6 +6,7 @@ from models.timetrial import TimeTrialSchema
 class Team(db.Model):
     __tablename__ = "teams"
 
+    # Columns in the teams table
     id = db.Column(db.Integer, primary_key=True)
     team_name = db.Column(db.String(100))
     date = db.Column(db.Date) # Date the team was created

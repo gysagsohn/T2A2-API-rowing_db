@@ -5,6 +5,7 @@ from marshmallow import fields
 class TimeTrial(db.Model):
     __tablename__ = "timetrials"
 
+    # Columns in the timetrials table
     id = db.Column(db.Integer, primary_key=True)
     date_of_event = db.Column(db.Date, nullable=False)
     distance = db.Column(db.Float, nullable=False)
@@ -16,9 +17,11 @@ class TimeTrial(db.Model):
     # Define the relationship with the Team model
     team = db.relationship('Team', back_populates='timetrials')
 
+# Include foreign key IDs alongside nested objects
 class TimeTrialSchema(ma.Schema):
     teams = fields.Nested('TeamSchema', only=['id', 'team_name'])
 
+    # Include foreign key IDs in serialization
     class Meta:
         fields = ('id', 'date_of_event', 'distance', 'time', 'team')
 

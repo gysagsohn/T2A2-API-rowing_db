@@ -9,6 +9,7 @@ from models.timetrial import TimeTrial
 
 timetrial_bp = Blueprint('timetrials', __name__, url_prefix='/timetrials')
 
+# Endpoint: http://localhost:7012/timetrials/ - POST
 @timetrial_bp.route('/', methods=['POST'])
 @jwt_required()  # Require JWT authentication for creating time trials
 def create_time_trial():
@@ -57,6 +58,7 @@ def create_time_trial():
         return jsonify({'error': str(e)}), 500
 
 # Route to fetch all time trials
+# Endpoint: http://localhost:7012/timetrials/ - GET
 @timetrial_bp.route('/', methods=['GET'])
 def get_all_time_trials():
     try:
@@ -78,7 +80,8 @@ def get_all_time_trials():
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+# Endpoint: http://localhost:7012/timetrials/<time_trial_id> - PUT  
 @timetrial_bp.route('/<int:time_trial_id>', methods=['PUT'])
 @jwt_required()  # Require JWT authentication for updating time trials
 def update_time_trial(time_trial_id):
@@ -115,6 +118,7 @@ def update_time_trial(time_trial_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# Endpoint: http://localhost:7012/timetrials/<time_trial_id> - DELETE
 @timetrial_bp.route('/<int:time_trial_id>', methods=['DELETE'])
 @jwt_required()  # Require JWT authentication for deleting time trials
 def delete_time_trial(time_trial_id):
